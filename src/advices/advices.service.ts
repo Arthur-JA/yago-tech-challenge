@@ -8,19 +8,7 @@ export class AdvicesService {
     return 'This action adds a new advice';
   }
 
-  findAll() {
-    return `This action returns all advices`;
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} advice`;
-  }
-
-  update(id: number, updateAdviceDto: UpdateAdviceDto) {
-    return `This action updates a #${id} advice`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} advice`;
+  async generateAdvicesForCovers() {
+    
   }
 }
