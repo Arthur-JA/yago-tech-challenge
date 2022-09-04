@@ -1,6 +1,5 @@
 import { HttpService } from '@nestjs/axios';
 import { HttpException, Injectable } from '@nestjs/common';
-import * as Mongoose from 'mongoose';
 import { firstValueFrom } from 'rxjs';
 import { config } from '../configuration';
 import { GenerateQuoteDto } from './dto/input/generate-quote.dto';
@@ -13,9 +12,9 @@ export class QuotesService {
   async generateQuote(generateQuoteDto: GenerateQuoteDto): Promise<Quote> {
     let quote;
 
+    //@TODO REMOVE THIS RETURN IF API CALL WORKS AGAIN
     // Can't call API so let's pretend it works
     return {
-      _id: new Mongoose.Types.ObjectId(),
       available: true,
       coverageCeiling: 100000,
       deductible: 5000,

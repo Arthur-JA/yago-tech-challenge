@@ -4,11 +4,11 @@ import { CreateLeadDto } from '../../leads/dto/create-lead.dto';
 import { GenerateQuoteDto } from '../../quotes/dto/input/generate-quote.dto';
 
 export class CreateSimulationDto {
-  // @ValidateNested()
+  @ValidateNested()
   @Type(() => CreateLeadDto)
   lead: CreateLeadDto;
 
-  // @ValidateNested()
+  @ValidateNested()
   @Type(() => GenerateQuoteDto)
   quote: GenerateQuoteDto;
 }

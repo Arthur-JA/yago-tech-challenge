@@ -1,5 +1,5 @@
 export class Advice {
-  // name: string;
+  name: string;
   currentValue: any;
   advisedValue?: any;
   comment?: string;

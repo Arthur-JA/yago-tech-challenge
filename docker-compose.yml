@@ -1,0 +1,19 @@
+version: "3.9"
+services:
+  nestjs:
+    build: .
+    ports:
+      - 3000:3000
+    environment:
+      - API_KEY=${API_KEY}
+      - DB_URL=mongodb://root:password123@mongo:27017/
+    depends_on:
+      - mongo
+
+  mongo:
+    image: mongo:latest
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=password123
+    ports:
+      - 27017:27017

@@ -1,8 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import { CoverageCeilingFormula } from '../quotes/enums/coverage-ceiling-formula';
-import { DeductibleFormula } from '../quotes/enums/deductible-formula';
+import { AdvicesService } from '../advices/advices.service';
 import { Simulation } from './schemas/simulation.schema';
-import { NacebelJobs } from '../advices/nacebel-jobs';
+import { NacebelJobs } from '../quotes/nacebel-jobs';
 import { LeadsService } from '../leads/leads.service';
 import { QuotesService } from '../quotes/quotes.service';
 import { CreateSimulationDto } from './dto/create-simulation.dto';
@@ -12,45 +11,37 @@ export class SimulationsService {
   constructor(
     private readonly quoteService: QuotesService,
     private readonly leadService: LeadsService,
+    private readonly adviceService: AdvicesService,
   ) {}
 
   async create(createSimulationDto: CreateSimulationDto) {
     const lead = await this.leadService.create(createSimulationDto.lead);
 
+    const advisedFormulas = this.adviceService.getAdvisedFormulas();
     createSimulationDto.quote.nacebelCodes = NacebelJobs.medical;
+    createSimulationDto.quote.deductibleFormula ??= advisedFormulas.deductibleFormula;
+    createSimulationDto.quote.coverageCeilingFormula ??= advisedFormulas.coverageCeilingFormula;
     const quote = await this.quoteService.generateQuote(
       createSimulationDto.quote,
     );
 
+    let simulation: Simulation = {
+      lead,
+      quote,
+      deductibleFormula: createSimulationDto.quote.deductibleFormula,
+      coverageCeilingFormula: createSimulationDto.quote.coverageCeilingFormula,
+    };
+
+    const advices = this.adviceService.createForSimulation(simulation);
+
     //@todo persistence
+
     return {
       lead,
       quote,
       deductibleFormula: createSimulationDto.quote.deductibleFormula,
       coverageCeilingFormula: createSimulationDto.quote.coverageCeilingFormula,
-      advices: [
-        {
-          name: 'Deductible Formula',
-          currentValue: createSimulationDto.quote.deductibleFormula,
-          advisedValue: DeductibleFormula.SMALL,
-          comment:
-            "it will reduce your price and it's not that important for you",
-        },
-        {
-          name: 'Coverage ceiling formula',
-          currentValue: createSimulationDto.quote.coverageCeilingFormula,
-          advisedValue: CoverageCeilingFormula.LARGE,
-          comment:
-            'this will protect you for much higher amounts that the default one in case of dangerous consequences of your action',
-        },
-        {
-          name: 'Legal expanses Cover',
-          currentValue: quote.coverPremiums.legalExpenses,
-          advisedValue: 'yes', //it exists
-          comment:
-            "strongly recommended in your case as the risk are high. There's a high probability that the claim would be followed by legal actions.",
-        },
-      ],
+      advices,
     };
   }
 }

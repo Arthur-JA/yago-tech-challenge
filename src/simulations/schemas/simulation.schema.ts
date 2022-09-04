@@ -9,5 +9,5 @@ export class Simulation {
   quote: Quote;
   deductibleFormula: DeductibleFormula;
   coverageCeilingFormula: CoverageCeilingFormula;
-  advices: Advice[] = [];
+  advices?: Advice[] = [];
 }

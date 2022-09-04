@@ -1,3 +1,4 @@
+import { Transform } from 'class-transformer';
 import {
   IsBoolean,
   IsEnum,
@@ -10,6 +11,7 @@ import { CoverageCeilingFormula } from '../../enums/coverage-ceiling-formula';
 import { DeductibleFormula } from '../../enums/deductible-formula';
 
 export class GenerateQuoteDto {
+  @Transform((params) => parseInt(params.value))
   @IsNumber()
   annualRevenue: number;
 
@@ -19,8 +21,9 @@ export class GenerateQuoteDto {
   @IsString()
   legalName: string;
 
+  @Transform((params) => !!params.value)
   @IsBoolean()
-  naturalPerson: boolean;
+  naturalPerson? = false;
 
   @IsOptional()
   @Matches(/^\d{5}$/, { each: true })

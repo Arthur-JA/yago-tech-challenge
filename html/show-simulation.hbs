@@ -1,14 +1,14 @@
-RESULTS
+<h1>My simulation</h1>
 
-{{all}}
-<h1>
+<h2>
     You are
-</h1>
-{{ simulation.lead.firstname }} {{ simulation.lead.lastname }} - {{ simulation.lead.email }} - {{ simulation.lead.phoneNumber }}
+</h2>
+{{ simulation.lead.firstname }} {{ simulation.lead.lastname }} - {{ simulation.lead.email }} - {{ simulation.lead.phoneNumber }}<br>
+{{simulation.lead.address}}
 
-<h1>
+<h2>
     Your quote
-</h1>
+</h2>
 
 <strong>Deductible formula : {{createDto.quote.deductibleFormula}}</strong><br>
 <strong>Coverage ceiling formula : {{createDto.quote.coverageCeilingFormula}}</strong><br>
@@ -30,9 +30,9 @@ RESULTS
 </ul>
 {{ quote }}
 
-<h1>
+<h2>
     Our advices
-</h1>
+</h2>
 <ul>
     {{#each simulation.advices}}
         <li>
@@ -44,3 +44,5 @@ RESULTS
         </li>
     {{/each}}
 </ul>
+
+<a href="/">Redo simulation</a>
