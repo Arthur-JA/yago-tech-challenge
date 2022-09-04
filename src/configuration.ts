@@ -7,4 +7,5 @@ export const config = {
     apiKey: process.env.API_KEY,
   },
   dbUrl: process.env.DB_URL,
+  dbOptions: { dbName: 'yago' },
 };

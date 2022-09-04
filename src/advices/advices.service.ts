@@ -10,7 +10,7 @@ export class AdvicesService {
   getAdvisedFormulas(job = 'medical') {
     return {
       deductibleFormula: DeductibleFormula.SMALL,
-      coverageCeilingFormula: CoverageCeilingFormula.LARGE
+      coverageCeilingFormula: CoverageCeilingFormula.LARGE,
     };
   }
 

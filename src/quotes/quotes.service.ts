@@ -47,8 +47,6 @@ export class QuotesService {
       throw err;
     }
 
-    //@todo persistence
-
     return quote;
   }
 }
