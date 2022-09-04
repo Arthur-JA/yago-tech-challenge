@@ -7,6 +7,7 @@ import {
   Render,
   Res,
 } from '@nestjs/common';
+import {createReadStream} from 'fs';
 import { CreateSimulationDto } from '../simulations/dto/create-simulation.dto';
 import { SimulationsService } from '../simulations/simulations.service';
 
@@ -17,6 +18,7 @@ export class FrontController {
   @Get()
   @Render('home')
   home() {}
+
 
   @Post('/create-simulation')
   async createSimulation(

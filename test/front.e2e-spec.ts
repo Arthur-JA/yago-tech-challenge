@@ -1,8 +1,7 @@
 import { MongooseModule } from '@nestjs/mongoose';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { Test, TestingModule } from '@nestjs/testing';
-import { HttpStatus, INestApplication, ValidationPipe } from '@nestjs/common';
-import {IsString} from 'class-validator';
+import { HttpStatus, ValidationPipe } from '@nestjs/common';
 import { join } from 'path';
 import * as request from 'supertest';
 import { FrontModule } from '../src/front/front.module';
@@ -25,6 +24,12 @@ describe('AppController (e2e)', () => {
     app.setViewEngine('hbs');
     await app.init();
   });
+
+  afterAll(async () => {
+    console.log('CLOSE');
+    await app.close();
+  });
+
 
   it('should get homepage (GET)', async () => {
     const response = await request(app.getHttpServer()).get('/');
