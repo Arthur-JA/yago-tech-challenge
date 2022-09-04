@@ -1,4 +1,11 @@
-import { IsBoolean, IsEnum, IsNumber, IsOptional, IsString, Matches } from 'class-validator';
+import {
+  IsBoolean,
+  IsEnum,
+  IsNumber,
+  IsOptional,
+  IsString,
+  Matches,
+} from 'class-validator';
 import { CoverageCeilingFormula } from '../../enums/coverage-ceiling-formula';
 import { DeductibleFormula } from '../../enums/deductible-formula';
 
@@ -15,8 +22,9 @@ export class GenerateQuoteDto {
   @IsBoolean()
   naturalPerson: boolean;
 
-  @Matches(/^\d{5}$/, {each: true})
-  nacebelCodes: string[];
+  @IsOptional()
+  @Matches(/^\d{5}$/, { each: true })
+  nacebelCodes?: string[];
 
   @IsOptional()
   @IsEnum(DeductibleFormula)

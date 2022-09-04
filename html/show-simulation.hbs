@@ -1,0 +1,46 @@
+RESULTS
+
+{{all}}
+<h1>
+    You are
+</h1>
+{{ simulation.lead.firstname }} {{ simulation.lead.lastname }} - {{ simulation.lead.email }} - {{ simulation.lead.phoneNumber }}
+
+<h1>
+    Your quote
+</h1>
+
+<strong>Deductible formula : {{createDto.quote.deductibleFormula}}</strong><br>
+<strong>Coverage ceiling formula : {{createDto.quote.coverageCeilingFormula}}</strong><br>
+<ul>
+    <li>
+        coverageCeiling: {{simulation.quote.coverageCeiling}}
+    </li>
+    <li>
+        deductible: {{simulation.quote.deductible}}
+    </li>
+    <li>
+        covers:
+        <ul>
+            {{#each simulation.quote.coverPremiums}}
+                <li>{{@key}}: {{this}}</li>
+            {{/each}}
+        </ul>
+    </li>
+</ul>
+{{ quote }}
+
+<h1>
+    Our advices
+</h1>
+<ul>
+    {{#each simulation.advices}}
+        <li>
+            {{this.name}}
+            <ul>
+                <li>Recommended : {{this.advisedValue}}</li>
+                <li>{{this.comment}}</li>
+            </ul>
+        </li>
+    {{/each}}
+</ul>

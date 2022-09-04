@@ -71,3 +71,10 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 ## License
 
 Nest is [MIT licensed](LICENSE).
+
+
+## Yago Technical Challenge
+
+This project is done with the [NestJS](https://github.com/nestjs/nest) framework
+
+It can be accessed here
