@@ -1,17 +1,19 @@
-<h1>My simulation</h1>
-
+<h1>Your simulation</h1>
+<a href="/">Redo simulation</a>
 <h2>
     You are
 </h2>
 {{ simulation.lead.firstname }} {{ simulation.lead.lastname }} - {{ simulation.lead.email }} - {{ simulation.lead.phoneNumber }}<br>
-{{simulation.lead.address}}
+{{simulation.lead.address}}<br>
+{{ simulation.lead.company.legalName }} - {{simulation.lead.company.enterpriseNumber }}<br>
+Annual revenues: {{ simulation.lead.company.annualRevenue }} €
 
 <h2>
-    Your quote
+    Our offer
 </h2>
 
-<strong>Deductible formula : {{createDto.quote.deductibleFormula}}</strong><br>
-<strong>Coverage ceiling formula : {{createDto.quote.coverageCeilingFormula}}</strong><br>
+<strong>Deductible formula : {{simulation.deductibleFormula}}</strong><br>
+<strong>Coverage ceiling formula : {{simulation.coverageCeilingFormula}}</strong><br>
 <ul>
     <li>
         coverageCeiling: {{simulation.quote.coverageCeiling}}
@@ -22,8 +24,8 @@
     <li>
         covers:
         <ul>
-            {{#each simulation.quote.coverPremiums}}
-                <li>{{@key}}: {{this}}</li>
+            {{#each simulation.quote.grossPremiums}}
+                <li>{{@key}}: {{this}} €</li>
             {{/each}}
         </ul>
     </li>
@@ -44,5 +46,3 @@
         </li>
     {{/each}}
 </ul>
-
-<a href="/">Redo simulation</a>

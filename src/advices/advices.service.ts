@@ -6,7 +6,6 @@ import { Simulation } from '../simulations/schemas/simulation.schema';
 
 @Injectable()
 export class AdvicesService {
-  //@todo job enum
   getAdvisedFormulas(job = 'medical') {
     return {
       deductibleFormula: DeductibleFormula.SMALL,
@@ -32,7 +31,7 @@ export class AdvicesService {
       },
       {
         name: 'Legal expanses Cover',
-        currentValue: simulation.quote.coverPremiums.legalExpenses,
+        currentValue: simulation.quote.grossPremiums.legalExpenses,
         advisedValue: 'yes', //it exists
         comment:
           "strongly recommended in your case as the risk are high. There's a high probability that the claim would be followed by legal actions.",

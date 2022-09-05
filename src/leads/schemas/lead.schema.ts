@@ -1,4 +1,5 @@
-import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { Prop, Schema } from '@nestjs/mongoose';
+import {Company} from './company.schema';
 
 @Schema({ _id: false })
 export class Lead {
@@ -16,4 +17,7 @@ export class Lead {
 
   @Prop({ type: String, required: true })
   lastname: string;
+
+  @Prop({ type: Company, required: true })
+  company?: Company;
 }

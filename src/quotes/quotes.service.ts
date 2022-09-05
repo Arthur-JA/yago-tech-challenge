@@ -1,5 +1,5 @@
 import { HttpService } from '@nestjs/axios';
-import { HttpException, Injectable } from '@nestjs/common';
+import {HttpException, Injectable, InternalServerErrorException} from '@nestjs/common';
 import { firstValueFrom } from 'rxjs';
 import { config } from '../configuration';
 import { GenerateQuoteDto } from './dto/input/generate-quote.dto';
@@ -10,33 +10,17 @@ export class QuotesService {
   constructor(private readonly httpService: HttpService) {}
 
   async generateQuote(generateQuoteDto: GenerateQuoteDto): Promise<Quote> {
-    let quote;
-
-    //@TODO REMOVE THIS RETURN IF API CALL WORKS AGAIN
-    // Can't call API so let's pretend it works
-    return {
-      available: true,
-      coverageCeiling: 100000,
-      deductible: 5000,
-      quoteId: '012604234942544',
-      coverPremiums: {
-        afterDelivery: 53.0, // covers damage arising after delivery of or completion of work (ex: new machines recently installed at the client's office start a fire).
-        publicLiability: 150.0, // cover compensation claims for injury or damage (ex: you spill a cup of coffee over a client’s computer equipment).
-        professionalIndemnity: 270.0, // cover compensation claims for a mistake that you make during your work (ex: accidentally forwarded confidential client information to third parties).
-        entrustedObjects: 12.92, // objects that don't belong to you, and are entrusted to you. You are obviously liable for any damage to these goods. (ex: you break the super expensive computer that was provided to you as an IT consultant).
-        legalExpenses: 20.87, // also known as legal insurance, is an insurance which facilitates access to law and justice by providing legal advice and covering legal costs of a dispute. (ex: a client asks you for a financial compensation for a mistake you made in your work and you consider it's absolutely not you fault considering the context and you thus want to hire a lawyer to defend you).
-      },
-    } as Quote;
+    let result;
 
     try {
-      quote = await firstValueFrom(
+      result = (await firstValueFrom(
         this.httpService.post(config.insuranceApi.url, generateQuoteDto, {
           headers: {
             'X-Api-Key': config.insuranceApi.apiKey,
             'Content-Type': 'application/json',
           },
         }),
-      );
+      )).data;
     } catch (err) {
       if (err.response) {
         throw new HttpException(
@@ -47,6 +31,11 @@ export class QuotesService {
       throw err;
     }
 
-    return quote;
+    console.log('get quote result', result);
+    if (result.success || result.message !== 'success') {
+      return result.data;
+    } else {
+      throw new InternalServerErrorException(`Cannot generate quote from api: ${result.message}`);
+    }
   }
 }

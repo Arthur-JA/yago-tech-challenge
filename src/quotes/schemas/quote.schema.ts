@@ -15,7 +15,7 @@ export class Quote {
   quoteId: string;
 
   @Prop({ type: Object, required: true })
-  coverPremiums: {
+  grossPremiums: {
     afterDelivery: number;
     publicLiability: number;
     professionalIndemnity: number;

@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { AdvicesModule } from '../advices/advices.module';
+import {LeadsModule} from '../leads/leads.module';
 import { QuotesModule } from '../quotes/quotes.module';
 import { Simulation, SimulationSchema } from './schemas/simulation.schema';
 import { SimulationsService } from './simulations.service';
@@ -14,6 +15,7 @@ import { SimulationsService } from './simulations.service';
     ]),
     QuotesModule,
     AdvicesModule,
+    LeadsModule
   ],
 })
 export class SimulationsModule {}
