@@ -1,8 +1,12 @@
 {
-  "name": "technical-challenge",
+  "name": "yago-technical-challenge",
   "version": "0.0.1",
-  "description": "",
-  "author": "",
+  "description": "Yago technical challenge",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Arthur-JA/yago-tech-challenge.git"
+  },
+  "author": "Arthur JA",
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
